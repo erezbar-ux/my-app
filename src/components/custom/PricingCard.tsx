@@ -26,7 +26,7 @@ export function PricingCard({
   return (
     <Card
       className={cn(
-        'flex-1 items-center gap-6 rounded-lg p-8',
+        'flex-1 items-center gap-6 rounded-lg p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg',
         isBrand
           ? 'border-[#2C2C2C] bg-[#2C2C2C]'
           : 'border-[#D9D9D9] bg-white'
