@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
 interface PricingCardProps {
@@ -23,23 +24,23 @@ export function PricingCard({
   const isBrand = variant === 'brand'
 
   return (
-    <article
+    <Card
       className={cn(
-        'flex flex-1 flex-col items-center gap-6 rounded-lg p-8',
+        'flex-1 items-center gap-6 rounded-lg p-8',
         isBrand
-          ? 'border border-[#2C2C2C] bg-[#2C2C2C]'
-          : 'border border-[#D9D9D9] bg-white'
+          ? 'border-[#2C2C2C] bg-[#2C2C2C]'
+          : 'border-[#D9D9D9] bg-white'
       )}
     >
-      <div className="flex w-full flex-col items-center gap-4">
-        <h3
+      <CardHeader className="items-center gap-4 p-0">
+        <CardTitle
           className={cn(
             'text-center text-2xl font-semibold leading-[1.2] tracking-[-0.02em]',
             isBrand ? 'text-[#F5F5F5]' : 'text-[#1E1E1E]'
           )}
         >
           {title}
-        </h3>
+        </CardTitle>
 
         <div className="flex items-end justify-center">
           <div className="flex items-baseline">
@@ -69,7 +70,9 @@ export function PricingCard({
             {period}
           </span>
         </div>
+      </CardHeader>
 
+      <CardContent className="w-full p-0">
         <ul className="flex w-full flex-col gap-3">
           {features.map((feature, i) => (
             <li
@@ -83,18 +86,20 @@ export function PricingCard({
             </li>
           ))}
         </ul>
-      </div>
+      </CardContent>
 
-      <Button
-        className={cn(
-          'w-full rounded-lg py-3 text-base leading-none transition-colors',
-          isBrand
-            ? 'border border-[#767676] bg-[#E3E3E3] text-[#1E1E1E] hover:bg-[#D9D9D9]'
-            : 'border border-[#2C2C2C] bg-[#2C2C2C] text-[#F5F5F5] hover:bg-[#1E1E1E]'
-        )}
-      >
-        {buttonLabel}
-      </Button>
-    </article>
+      <CardFooter className="p-0">
+        <Button
+          className={cn(
+            'w-full rounded-lg py-3 text-base leading-none transition-colors',
+            isBrand
+              ? 'border border-[#767676] bg-[#E3E3E3] text-[#1E1E1E] hover:bg-[#D9D9D9]'
+              : 'border border-[#2C2C2C] bg-[#2C2C2C] text-[#F5F5F5] hover:bg-[#1E1E1E]'
+          )}
+        >
+          {buttonLabel}
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }

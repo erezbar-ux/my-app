@@ -65,9 +65,9 @@ const footerColumns: LinkListProps[] = [
 
 export function Footer() {
   return (
-    <footer className="flex gap-6 border-t border-[#D9D9D9] bg-white px-16 py-16">
-      <div className="flex shrink-0 items-start">
-        <img src={footerLogoSvg} alt="Logo" className="h-[85px] w-[264px]" />
+    <footer className="grid grid-cols-1 gap-8 border-t border-[#D9D9D9] bg-white px-6 py-10 sm:grid-cols-4 md:px-16 md:py-16">
+      <div className="flex items-start">
+        <img src={footerLogoSvg} alt="Logo" className="h-auto w-[180px] md:h-[85px] md:w-[264px]" />
       </div>
       {footerColumns.map((column) => (
         <LinkList key={column.title} title={column.title} links={column.links} />

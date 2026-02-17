@@ -1,6 +1,9 @@
-import { useState } from 'react'
-import { ChevronUp, ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
 interface AccordionItemData {
   title: string
@@ -30,51 +33,7 @@ const faqItems: AccordionItemData[] = [
   },
 ]
 
-function AccordionItem({
-  item,
-  isOpen,
-  onToggle,
-}: {
-  item: AccordionItemData
-  isOpen: boolean
-  onToggle: () => void
-}) {
-  return (
-    <div
-      className={cn(
-        'rounded-lg border border-[#D9D9D9] transition-colors',
-        isOpen ? 'bg-white' : 'bg-[#F5F5F5]'
-      )}
-    >
-      <button
-        onClick={onToggle}
-        className={cn(
-          'flex w-full items-center gap-2 p-4 text-left',
-          isOpen ? '' : ''
-        )}
-        aria-expanded={isOpen}
-      >
-        <span className="flex-1 text-base font-semibold leading-[1.4] text-[#1E1E1E]">
-          {item.title}
-        </span>
-        {isOpen ? (
-          <ChevronUp className="h-5 w-5 shrink-0 text-[#1E1E1E]" />
-        ) : (
-          <ChevronDown className="h-5 w-5 shrink-0 text-[#1E1E1E]" />
-        )}
-      </button>
-      {isOpen && (
-        <div className="px-4 pb-4">
-          <p className="text-base leading-[1.4] text-[#1E1E1E]">{item.content}</p>
-        </div>
-      )}
-    </div>
-  )
-}
-
 export function AccordionSection() {
-  const [openIndex, setOpenIndex] = useState(0)
-
   return (
     <section className="flex flex-col items-center gap-12 bg-white px-16 py-16">
       <div className="flex flex-col items-center gap-2">
@@ -86,16 +45,22 @@ export function AccordionSection() {
         </p>
       </div>
 
-      <div className="flex w-full max-w-[640px] flex-col gap-4">
+      <Accordion type="single" collapsible defaultValue="item-0" className="flex w-full max-w-[640px] flex-col gap-4">
         {faqItems.map((item, i) => (
           <AccordionItem
             key={i}
-            item={item}
-            isOpen={i === openIndex}
-            onToggle={() => setOpenIndex(i === openIndex ? -1 : i)}
-          />
+            value={`item-${i}`}
+            className="rounded-lg border border-[#D9D9D9] bg-[#F5F5F5] data-[state=open]:bg-white"
+          >
+            <AccordionTrigger className="p-4 text-base font-semibold leading-[1.4] text-[#1E1E1E] hover:no-underline">
+              {item.title}
+            </AccordionTrigger>
+            <AccordionContent className="px-4 pb-4 text-base leading-[1.4] text-[#1E1E1E]">
+              {item.content}
+            </AccordionContent>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
     </section>
   )
 }
